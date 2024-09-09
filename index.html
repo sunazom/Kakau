@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cartinha para Kauanny</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #121212, #1f1f1f);
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            padding: 15px;
+            max-width: 90%;
+            text-align: center;
+            z-index: 10;
+            position: relative;
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            color: #fff5b7;
+            margin-bottom: 15px;
+        }
+
+        p {
+            font-size: 1rem;
+            line-height: 1.4;
+            color: #e6e6e6;
+        }
+
+        .heart {
+            font-size: 3rem;
+            color: #ff6699;
+            animation: heartbeat 1.5s infinite;
+        }
+
+        /* Slider */
+        .slider-container {
+            position: relative;
+            margin-top: 15px;
+        }
+
+        .slide {
+            display: none;
+            font-size: 1rem;
+            color: #e6e6e6;
+        }
+
+        .slide.active {
+            display: block;
+        }
+
+        /* Animação de corações caindo */
+        .falling-heart {
+            position: absolute;
+            top: -10px;
+            font-size: 1.5rem;
+            color: #ff6699;
+            animation: fall 5s infinite;
+            z-index: 1;
+        }
+
+        @keyframes heartbeat {
+            0% {
+                transform: scale(1);
+            }
+
+            25% {
+                transform: scale(1.1);
+            }
+
+            50% {
+                transform: scale(1);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(-100px) scale(0.5);
+                opacity: 0;
+            }
+
+            50% {
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateY(100vh) scale(1);
+                opacity: 0;
+            }
+        }
+
+        /* Responsividade */
+        @media only screen and (max-width: 600px) {
+            h1 {
+                font-size: 1.5rem;
+            }
+
+            p {
+                font-size: 0.9rem;
+            }
+
+            .heart {
+                font-size: 2.5rem;
+            }
+
+            .slide {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="card">
+        <h1>Para Kauanny 💖</h1>
+        <p>Você é a pessoa mais especial do meu mundo, e cada momento ao seu lado é único. Eu te amo!</p>
+        <div class="heart">❤️</div>
+
+        <!-- Slider -->
+        <div class="slider-container">
+            <div class="slide active">Quando te mandei o primeiro "oi", meu coração bateu diferente. Era o começo de
+                algo lindo!</div>
+            <div class="slide">Nosso primeiro beijo foi o momento mais mágico, como se o mundo parasse só para nós dois.
+            </div>
+        </div>
+    </div>
+
+    <!-- Corações caindo -->
+    <script>
+        // Função para criar corações caindo
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('falling-heart');
+            heart.textContent = '❤️';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = Math.random() * 3 + 2 + 's';
+            document.body.appendChild(heart);
+            setTimeout(() => {
+                heart.remove();
+            }, 5000); // Remove o coração após 5 segundos
+        }
+
+        setInterval(createHeart, 500); // Cria corações a cada 0,5 segundo
+
+        // Slider automático
+        let slideIndex = 0;
+        const slides = document.querySelectorAll('.slide');
+
+        function showSlides() {
+            slides.forEach((slide, index) => {
+                slide.classList.remove('active');
+                if (index === slideIndex) {
+                    slide.classList.add('active');
+                }
+            });
+            slideIndex = (slideIndex + 1) % slides.length;
+            setTimeout(showSlides, 4000); // Mudar slide a cada 4 segundos
+        }
+
+        showSlides();
+    </script>
+
+</body>
+
+</html>
